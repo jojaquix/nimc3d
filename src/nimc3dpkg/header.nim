@@ -1,6 +1,6 @@
 type
-  Header* = ref object
-    nbOfZerosBeforeHeader*: int
+  Header* = object
+    nbOfZerosBeforeHeader*: int = 0
     parametersAddress*: int
     checksum: int
     nb3dPoints: int
@@ -21,31 +21,28 @@ type
     firstBlockKeyLabel: int
     fourCharPresent: int
 
-proc newHeader*(): Header =
-  new(result)
-  result.nbOfZerosBeforeHeader = 0
-  result.parametersAddress = 2
-  result.checksum = 0x50
-  result.nb3dPoints = 0
-  result.nbAnalogsMeasurement = 0
-  result.hasRotationalData = false
-  result.firstFrame = 0
-  result.lastFrame = 0
-  result.nbMaxInterpGap = 10
-  result.scaleFactor = -1
-  result.dataStart = 1
-  result.nbAnalogByFrame = 0
-  result.frameRate = 0
-  result.emptyBlock1 = 0
-  result.emptyBlock2 = 0
-  result.emptyBlock3 = 0
-  result.emptyBlock4 = 0
-  result.keyLabelPresent = 0
-  result.firstBlockKeyLabel = 0
-  result.fourCharPresent = 0x3039
+proc initHeader*(header: var Header) =
+  header.nbOfZerosBeforeHeader = 0
+  header.parametersAddress = 2
+  header.checksum = 0x50
+  header.nb3dPoints = 0
+  header.nbAnalogsMeasurement = 0
+  header.hasRotationalData = false
+  header.firstFrame = 0
+  header.lastFrame = 0
+  header.nbMaxInterpGap = 10
+  header.scaleFactor = -1
+  header.dataStart = 1
+  header.nbAnalogByFrame = 0
+  header.frameRate = 0
+  header.emptyBlock1 = 0
+  header.emptyBlock2 = 0
+  header.emptyBlock3 = 0
+  header.emptyBlock4 = 0
+  header.keyLabelPresent = 0
+  header.firstBlockKeyLabel = 0
+  header.fourCharPresent = 0x3039
  
-
-
 proc print*(header: Header) =
   echo "HEADER"
   echo "nb3dPoints = ", header.nb3dPoints

@@ -7,13 +7,15 @@
 
 import unittest
 
-import nimc3dpkg/[submodule, header]
+import nimc3dpkg/[submodule, header, c3dParser]
 
 test "correct welcome":
   check getWelcomeMessage() == "Hello, World!"
 
 test "header creation":
-  var header: Header = newHeader()
-  check header != nil
+  var header: Header 
+  initHeader(header)  
   check header.nbOfZerosBeforeHeader == 0
   check header.parametersAddress == 2
+
+  
